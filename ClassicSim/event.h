@@ -23,6 +23,8 @@ public:
 protected:
     Sim& sim_;
 
+    static uint64_t uid_counter_;
+    uint64_t uid_;
     timespan_t time_;
     int scheduled_ = -1;
 
@@ -33,6 +35,15 @@ protected:
     {
         return sim.events.allocate_event( size );
     }
+};
+
+template<class T = Event>
+class EventHandle
+{
+public:
+
+private:
+    Event* event_;
 };
 
 class EventManager

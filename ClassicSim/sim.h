@@ -27,11 +27,12 @@ protected:
 class Sim;
 class EventManager;
 class Event;
-
-#include "event.h"
+class EventHandle;
 
 class Sim
 {
 public:
     EventManager events;
 };
+
+#include "event.h"
