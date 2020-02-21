@@ -85,6 +85,7 @@ void EventManager::execute()
         siftDown_( 0 );
     }
 
+    time_ = event->time_;
     event->execute();
 
     recycleEvent_( event );
@@ -172,6 +173,7 @@ void* EventManager::allocateEvent( size_t size )
 
 void EventManager::recycleEvent_( Event* event )
 {
+    assert( event->uid_ == 0 );
     event->~Event();
 
     void* ptr = reinterpret_cast<uint8_t*>( event ) - cAlignSize;

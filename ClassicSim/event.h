@@ -76,6 +76,7 @@ inline EventHandle makeEvent( Sim& sim, Args&... args )
     return ptr;
 }
 
+// This is the intended way to store event references, which get invalidated after event fires
 class EventHandle
 {
 public:

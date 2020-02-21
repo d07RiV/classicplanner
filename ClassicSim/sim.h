@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <vector>
+#include <functional>
 
 #include "util.h"
 
@@ -34,6 +35,7 @@ class Sim;
 class EventManager;
 class Event;
 class EventHandle;
+class Actor;
 
 #include "event.h"
 
@@ -48,18 +50,25 @@ public:
     EventManager eventManager;
 
     template<typename T>
-    EventHandle after( timespan_t delta, const T& fn );
+    EventHandle after( timespan_t delta, T&& fn );
+
+    template<typename T>
+    void batch( T&& fn );
+
+private:
+    timespan_t batchSize_;
+    std::vector<std::function<void()>> nextBatch_;
 };
 
 template<typename T>
-EventHandle Sim::after( timespan_t delta, const T& fn )
+EventHandle Sim::after( timespan_t delta, T&& fn )
 {
     class FunctionEvent : public Event
     {
     public:
-        FunctionEvent( Sim& sim, timespan_t delta, const T& fn ) :
+        FunctionEvent( Sim& sim, timespan_t delta, T&& fn ) :
             Event( sim, delta ),
-            fn_( fn )
+            fn_( std::forward<T>( fn ) )
         {
         }
 
@@ -72,9 +81,23 @@ EventHandle Sim::after( timespan_t delta, const T& fn )
         {
             fn_();
         }
+
     private:
-        T fn_;
+        std::decay_t<T> fn_;
     };
 
-    return makeEvent( *this, delta, fn );
+    return makeEvent( *this, delta, std::forward<T>( fn ) );
+}
+
+template<typename T>
+void Sim::batch( T&& fn )
+{
+    if ( batchSize_ )
+    {
+        nextBatch_.emplace_back( std::forward<T>( fn ) );
+    }
+    else
+    {
+        after( timespan_t::zero(), std::forward<T>( fn ) );
+    }
 }
