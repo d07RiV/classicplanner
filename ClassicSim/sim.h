@@ -7,6 +7,7 @@
 #include <memory>
 #include <vector>
 #include <functional>
+#include <array>
 
 #include "util.h"
 
@@ -35,9 +36,13 @@ class Sim;
 class EventManager;
 class Event;
 class EventHandle;
+class ActorResources;
 class Actor;
 
+#include "enums.h"
+
 #include "event.h"
+#include "actor.h"
 
 class Sim
 {
