@@ -38,11 +38,14 @@ class Event;
 class EventHandle;
 class ActorResources;
 class Actor;
+class Spell;
 
 #include "enums.h"
 
 #include "event.h"
+#include "trigger.h"
 #include "actor.h"
+#include "spell.h"
 
 class Sim
 {

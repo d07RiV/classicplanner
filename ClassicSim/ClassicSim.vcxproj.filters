@@ -30,6 +30,12 @@
     <ClInclude Include="actor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="spell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trigger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="event.cpp">

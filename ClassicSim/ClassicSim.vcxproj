@@ -143,6 +143,8 @@
     <ClInclude Include="enums.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="sim.h" />
+    <ClInclude Include="spell.h" />
+    <ClInclude Include="trigger.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
